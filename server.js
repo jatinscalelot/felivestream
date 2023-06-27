@@ -27,7 +27,7 @@ var app = express();
 var idCounter = 0;
 var candidatesQueue = {};
 var kurentoClient = null;
-var presenter = {};
+var presenter = [];
 var viewers = [];
 var noPresenterMessage = 'No active presenter. Try again later...';
 var asUrl = url.parse(argv.as_uri);
@@ -245,7 +245,8 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 		stop(sessionId);
 		return callback(noPresenterMessage);
 	}
-	console.log('current -> presenter :', presenter);
+	console.log('current -> presenter : ->', presenter);
+	console.log('presenter[sessionId] ->', presenter[sessionId]);
 	presenter[sessionId].pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
 		if (error) {
 			// stop(sessionId);
