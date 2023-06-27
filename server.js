@@ -8,6 +8,11 @@ var kurento = require('kurento-client');
 var fs    = require('fs');
 var https = require('https');
 let mongoose = require("mongoose");
+const mongoConnection = require('./utilities/connections');
+const constants = require('./utilities/constants');
+const lstreamModel = require('./models/livestreams.model');
+const organiserModel = require('./models/organizers.model');
+const userModel = require('./models/users.model');
 var argv = minimist(process.argv.slice(2), {
     default: {
         as_uri: 'http://stun.festumevento.com:8443/',
@@ -53,71 +58,83 @@ function nextUniqueId() {
 var userId = null;
 wss.on('connection', function(ws, req) {
 	var userId = nextUniqueId();
-	var sessionId = nextUniqueId();
+	// var sessionId = nextUniqueId();
 	const queryString = req.url.split('?')[1];
 	if (queryString) {
 		const queryParams = new URLSearchParams(queryString);
-		sessionId = queryParams.get('sessionId');
+		var sessionId = queryParams.get('sessionId');
+		let oId = queryParams.get('oId');
+		let uId = queryParams.get('uId');
+		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
+		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '') || (uId && uId != undefined && uId != null && uId != ''))){
+			( async () => {
+				let livestreamData = await primary.model(constants.MODELS.livestreams, lstreamModel).findById(sessionId).lean();
+				console.log(livestreamData);
+
+				console.log('Connection received with sessionId ' + sessionId);
+				ws.on('error', function(error) {
+					console.log('Connection ' + sessionId + ' error');
+					stop(sessionId);
+				});
+				ws.on('close', function() {
+					console.log('Connection ' + sessionId + ' closed');
+					stop(sessionId);
+				});
+				ws.on('message', function(_message) {
+					var message = JSON.parse(_message);
+					console.log('Connection ' + sessionId + ' received message ');
+					switch (message.id) {
+					case 'presenter':
+						startPresenter(sessionId, ws, message.sdpOffer, function(error, sdpAnswer) {
+							if (error) {
+								return ws.send(JSON.stringify({
+									id : 'presenterResponse',
+									response : 'rejected',
+									message : error
+								}));
+							}
+							ws.send(JSON.stringify({
+								id : 'presenterResponse',
+								response : 'accepted',
+								sdpAnswer : sdpAnswer
+							}));
+						});
+						break;
+					case 'viewer':
+						startViewer(sessionId, ws, message.sdpOffer, function(error, sdpAnswer) {
+							if (error) {
+								return ws.send(JSON.stringify({
+									id : 'viewerResponse',
+									response : 'rejected',
+									message : error
+								}));
+							}
+							ws.send(JSON.stringify({
+								id : 'viewerResponse',
+								response : 'accepted',
+								sdpAnswer : sdpAnswer
+							}));
+						});
+						break;
+					case 'stop':
+						stop(sessionId);
+						break;
+					case 'onIceCandidate':
+						onIceCandidate(message.type, sessionId, message.candidate);
+						break;
+					default:
+						ws.send(JSON.stringify({
+							id : 'error',
+							message : 'Invalid message ' + message
+						}));
+						break;
+					}
+				});
+			})().catch((error) => {
+				console.log('error in main catch', error);
+			});
+		}
 	}
-	console.log('Connection received with sessionId ' + sessionId);
-    ws.on('error', function(error) {
-        console.log('Connection ' + sessionId + ' error');
-        stop(sessionId);
-    });
-    ws.on('close', function() {
-        console.log('Connection ' + sessionId + ' closed');
-        stop(sessionId);
-    });
-    ws.on('message', function(_message) {
-        var message = JSON.parse(_message);
-        console.log('Connection ' + sessionId + ' received message ');
-        switch (message.id) {
-        case 'presenter':
-			startPresenter(sessionId, ws, message.sdpOffer, function(error, sdpAnswer) {
-				if (error) {
-					return ws.send(JSON.stringify({
-						id : 'presenterResponse',
-						response : 'rejected',
-						message : error
-					}));
-				}
-				ws.send(JSON.stringify({
-					id : 'presenterResponse',
-					response : 'accepted',
-					sdpAnswer : sdpAnswer
-				}));
-			});
-			break;
-        case 'viewer':
-			startViewer(sessionId, ws, message.sdpOffer, function(error, sdpAnswer) {
-				if (error) {
-					return ws.send(JSON.stringify({
-						id : 'viewerResponse',
-						response : 'rejected',
-						message : error
-					}));
-				}
-				ws.send(JSON.stringify({
-					id : 'viewerResponse',
-					response : 'accepted',
-					sdpAnswer : sdpAnswer
-				}));
-			});
-			break;
-        case 'stop':
-            stop(sessionId);
-            break;
-        case 'onIceCandidate':
-            onIceCandidate(message.type, sessionId, message.candidate);
-            break;
-        default:
-            ws.send(JSON.stringify({
-                id : 'error',
-                message : 'Invalid message ' + message
-            }));
-            break;
-        }
-    });
 });
 function getKurentoClient(callback) {
     if (kurentoClient !== null) {
