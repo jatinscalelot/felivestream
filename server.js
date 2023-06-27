@@ -64,6 +64,7 @@ wss.on('connection', function(ws, req) {
 	if (queryString) {
 		console.log('AAA');
 		const queryParams = new URLSearchParams(queryString);
+		console.log('queryParams 111 : ', queryParams);
 		var sessionId = queryParams.get('sessionId');
 		let oId = queryParams.get('oId');
 		let uId = queryParams.get('uId');
