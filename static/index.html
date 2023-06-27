@@ -19,6 +19,21 @@
     <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
     <script src="js/index.js"></script>
     <title>Festum evento Live Streaming</title>
+    <style>
+      @media (max-width: 767px){
+        #videoBig {
+          width: 100%;
+          height: auto;
+          padding: 10px;
+          background: #f1f1f1;
+          border-radius: 10px;
+        }
+        div#videoBig video {
+          width: 100%;
+          height: calc(100vh - 150px);
+        }
+      }
+    </style>
   </head>
   <body>
     <header>
