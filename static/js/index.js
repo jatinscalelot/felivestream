@@ -5,27 +5,27 @@ const oId = urlParams.get('oId');
 const uId = urlParams.get('uId');
 if(oId && oId != null && oId != undefined && oId != ''){
 	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&oId='+oId);
-	window.onload = function() {
-		console = new Console();
-		video = document.getElementById('video');
-		presenter();
-	}
+	// window.onload = function() {
+	// 	console = new Console();
+	// 	video = document.getElementById('video');
+	// 	presenter();
+	// }
 }else{
-	window.onload = function() {
-		console = new Console();
-		video = document.getElementById('video');
-		viewer();
-	}
+	// window.onload = function() {
+	// 	console = new Console();
+	// 	video = document.getElementById('video');
+	// 	viewer();
+	// }
 	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&uId='+uId);
 }
 var video;
 var webRtcPeer;
 var type = 'pub';
 window.onload = function() {
-	// console = new Console();
-	// video = document.getElementById('video');
-	// document.getElementById('call').addEventListener('click', function() { presenter(); } );
-	// document.getElementById('viewer').addEventListener('click', function() { viewer(); } );
+	console = new Console();
+	video = document.getElementById('video');
+	document.getElementById('call').addEventListener('click', function() { presenter(); } );
+	document.getElementById('viewer').addEventListener('click', function() { viewer(); } );
 	document.getElementById('terminate').addEventListener('click', function() { stop(); } );
 }
 window.onbeforeunload = function() {
