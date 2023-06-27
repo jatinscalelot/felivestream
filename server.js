@@ -60,14 +60,18 @@ wss.on('connection', function(ws, req) {
 	var userId = nextUniqueId();
 	// var sessionId = nextUniqueId();
 	const queryString = req.url.split('?')[1];
+	console.log('queryString',queryString);
 	if (queryString) {
+		console.log('AAA');
 		const queryParams = new URLSearchParams(queryString);
 		var sessionId = queryParams.get('sessionId');
 		let oId = queryParams.get('oId');
 		let uId = queryParams.get('uId');
 		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
 		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '') || (uId && uId != undefined && uId != null && uId != ''))){
+			console.log('BBB');
 			( async () => {
+				console.log('CCC');
 				let livestreamData = await primary.model(constants.MODELS.livestreams, lstreamModel).findById(sessionId).lean();
 				console.log(livestreamData);
 
