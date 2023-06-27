@@ -71,13 +71,20 @@ wss.on('connection', function(ws, req) {
 		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
 		console.log('oId',oId);
 		console.log('uId',uId);
-		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '' && oId != 'null') || (uId && uId != undefined && uId != null && uId != '' && uId != 'null'))){
+		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)) || (uId && uId != undefined && uId != null && uId != '' && uId != 'null' && mongoose.Types.ObjectId.isValid(uId)))){
 			console.log('BBB');
 			( async () => {
 				console.log('CCC');
 				let livestreamData = await primary.model(constants.MODELS.livestreams, lstreamModel).findById(sessionId).lean();
-				console.log(livestreamData);
-
+				let organiserData = {}; let userData = {};
+				if(oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)){
+					organiserData = await primary.model(constants.MODELS.organizers, organiserModel).findById(oId).lean();
+				}else{
+					userData = await primary.model(constants.MODELS.users, userModel).findById(uId).lean();
+				}
+				console.log('livestreamData', livestreamData);
+				console.log('organiserData', organiserData);
+				console.log('userData', userData);
 				console.log('Connection received with sessionId ' + sessionId);
 				ws.on('error', function(error) {
 					console.log('Connection ' + sessionId + ' error');
