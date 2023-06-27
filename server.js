@@ -241,10 +241,10 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 }
 function startViewer(sessionId, ws, sdpOffer, callback) {
 	clearCandidatesQueue(userId);
-	// if (presenter[sessionId] && presenter[sessionId] === null) {
-	// 	stop(sessionId);
-	// 	return callback(noPresenterMessage);
-	// }
+	if (presenter[sessionId] && presenter[sessionId] === null) {
+		stop(sessionId);
+		return callback(noPresenterMessage);
+	}
 	console.log('current -> presenter :', presenter);
 	presenter[sessionId].pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
 		if (error) {
