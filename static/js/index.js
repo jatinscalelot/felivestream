@@ -5,17 +5,7 @@ const oId = urlParams.get('oId');
 const uId = urlParams.get('uId');
 if(oId && oId != null && oId != undefined && oId != ''){
 	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&oId='+oId);
-	// window.onload = function() {
-	// 	console = new Console();
-	// 	video = document.getElementById('video');
-	// 	presenter();
-	// }
 }else{
-	// window.onload = function() {
-	// 	console = new Console();
-	// 	video = document.getElementById('video');
-	// 	viewer();
-	// }
 	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&uId='+uId);
 }
 var video;
