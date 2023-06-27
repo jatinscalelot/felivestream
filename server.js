@@ -59,7 +59,7 @@ var userId = null;
 wss.on('connection', function(ws, req) {
 	var userId = nextUniqueId();
 	// var sessionId = nextUniqueId();
-	const queryString = req.url.split('?')[1];
+	const queryString = req.url.split('?');
 	console.log('queryString',queryString);
 	if (queryString) {
 		console.log('AAA');
