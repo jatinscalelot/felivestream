@@ -1,3 +1,4 @@
+const dotenv = require('dotenv').config();
 var path = require('path');
 var url = require('url');
 var express = require('express');
@@ -6,6 +7,7 @@ var ws = require('ws');
 var kurento = require('kurento-client');
 var fs    = require('fs');
 var https = require('https');
+let mongoose = require("mongoose");
 var argv = minimist(process.argv.slice(2), {
     default: {
         as_uri: 'http://stun.festumevento.com:8443/',
@@ -28,6 +30,17 @@ var port = asUrl.port;
 var server = https.createServer(options, app).listen(port, function() {
     console.log('Kurento Tutorial started');
     console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
+});
+mongoose.set('runValidators', true);
+mongoose.set('strictQuery', false);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+mongoose.connection.once('open', () => {
+  console.log("Well done! , connected with mongoDB database");
+}).on('error', error => {
+  console.log("Oops! database connection error:" + error);
 });
 var wss = new ws.Server({
     server : server,
