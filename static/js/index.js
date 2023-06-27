@@ -1,5 +1,6 @@
 
 const urlParams = new URLSearchParams(window.location.search);
+console.log('urlParams from frontend', urlParams);
 const sessionId = urlParams.get('sessionId');
 var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId);
 var video;
