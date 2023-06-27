@@ -71,7 +71,7 @@ wss.on('connection', function(ws, req) {
 		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
 		console.log('oId',oId);
 		console.log('uId',uId);
-		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '') || (uId && uId != undefined && uId != null && uId != ''))){
+		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '' && oId != 'null') || (uId && uId != undefined && uId != null && uId != '' && uId != 'null'))){
 			console.log('BBB');
 			( async () => {
 				console.log('CCC');

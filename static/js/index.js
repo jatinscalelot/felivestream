@@ -1,11 +1,8 @@
 
 const urlParams = new URLSearchParams(window.location.search);
-console.log('urlParams from frontend', urlParams);
 const sessionId = urlParams.get('sessionId');
 const oId = urlParams.get('oId');
 const uId = urlParams.get('uId');
-console.log('urlParams oId', oId);
-console.log('urlParams uId', uId);
 if(oId && oId != null && oId != undefined && oId != ''){
 	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&oId='+oId);
 }else{
