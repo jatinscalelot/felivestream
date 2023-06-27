@@ -44,7 +44,8 @@ let constants = {
         agents : 'agents',
         livestreambookings : 'livestreambookings',
         fcoinintransactions : 'fcoinintransactions',
-        fcoins : 'fcoins'
+        fcoins : 'fcoins',
+        currentpresenters : 'currentpresenters'
     }
 };
 module.exports = constants;
