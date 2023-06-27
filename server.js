@@ -82,9 +82,9 @@ wss.on('connection', function(ws, req) {
 				}else{
 					userData = await primary.model(constants.MODELS.users, userModel).findById(uId).lean();
 				}
-				console.log('livestreamData', livestreamData);
-				console.log('organiserData', organiserData);
-				console.log('userData', userData);
+				//console.log('livestreamData', livestreamData);
+				//console.log('organiserData', organiserData);
+				//console.log('userData', userData);
 				console.log('Connection received with sessionId ' + sessionId);
 				ws.on('error', function(error) {
 					console.log('Connection ' + sessionId + ' error');
