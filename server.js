@@ -201,6 +201,7 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 	// 	stop(sessionId);
 	// 	return callback(noPresenterMessage);
 	// }
+	console.log('current -> presenter :', presenter);
 	presenter[sessionId].pipeline.create('WebRtcEndpoint', function(error, webRtcEndpoint) {
 		if (error) {
 			// stop(sessionId);
