@@ -132,7 +132,7 @@ wss.on('connection', function (ws, req) {
 							});
 							break;
 						case 'stop':
-							stop(sessionId);
+							//stop(sessionId);
 							break;
 						case 'onIceCandidate':
 							onIceCandidate(message.type, sessionId, message.candidate);
