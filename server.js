@@ -177,6 +177,21 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 		pipeline: null,
 		webRtcEndpoint: null
 	}
+	let primary = mongoConnection.useDb(constants.DEFAULT_DB);
+	(async () => {
+		let obj = {
+			sessionId: sessionId,
+			...presenter[sessionId]
+		};
+		let currentPresenter = await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOne({ 'sessionId': sessionId }).lean();
+		if (currentPresenter) {
+			await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
+		} else {
+			await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).create(obj);
+		}
+	})().catch((error) => {
+		console.log('database error', error);
+	});
 	getKurentoClient(function (error, kurentoClient) {
 		if (error) {
 			stop(sessionId);
@@ -196,6 +211,15 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 				return callback(noPresenterMessage);
 			}
 			presenter[sessionId].pipeline = pipeline;
+			(async () => {
+				let obj = {
+					sessionId: sessionId,
+					...presenter[sessionId]
+				};
+				await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
+			})().catch((error) => {
+				console.log('database error', error);
+			});
 			pipeline.create('WebRtcEndpoint', function (error, webRtcEndpoint) {
 				if (error) {
 					stop(sessionId);
@@ -206,6 +230,15 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 					return callback(noPresenterMessage);
 				}
 				presenter[sessionId].webRtcEndpoint = webRtcEndpoint;
+				(async () => {
+					let obj = {
+						sessionId: sessionId,
+						...presenter[sessionId]
+					};
+					await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
+				})().catch((error) => {
+					console.log('database error', error);
+				});
 				if (candidatesQueue[sessionId]) {
 					while (candidatesQueue[sessionId].length) {
 						var candidate = candidatesQueue[sessionId].shift();
@@ -238,21 +271,6 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 				});
 			});
 		});
-	});
-	let primary = mongoConnection.useDb(constants.DEFAULT_DB);
-	(async () => {
-		let obj = {
-			sessionId: sessionId,
-			...presenter[sessionId]
-		};
-		let currentPresenter = await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOne({ 'sessionId': sessionId }).lean();
-		if (currentPresenter) {
-			await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
-		} else {
-			await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).create(obj);
-		}
-	})().catch((error) => {
-		console.log('database error', error);
 	});
 }
 function startViewer(sessionId, ws, sdpOffer, callback) {
