@@ -289,7 +289,11 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 			console.log('currentPresenter ->', currentPresenter);
 			if (currentPresenter) {
 				console.log('currentPresenter in if ->', currentPresenter);
-				presenter[sessionId] = currentPresenter;
+				presenter[sessionId] = {
+					id: sessionId,
+					pipeline: currentPresenter.pipeline,
+					webRtcEndpoint: currentPresenter.webRtcEndpoint
+				};
 				presenter[sessionId].pipeline.create('WebRtcEndpoint', function (error, webRtcEndpoint) {
 					if (error) {
 						// stop(sessionId);
