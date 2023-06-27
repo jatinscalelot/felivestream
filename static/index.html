@@ -20,25 +20,34 @@
     <script src="js/index.js"></script>
     <title>Festum evento Live Streaming</title>
     <style>
-      @media (max-width: 767px){
         #videoBig {
           width: 100%;
-          height: auto;
-          padding: 10px;
-          background: #f1f1f1;
-          border-radius: 10px;
-        }
-        div#videoBig video {
-          width: 100%;
           height: calc(100vh - 150px);
+          padding: 10px;
+          border-radius: 10px;
+          background: #f1f1f1;
         }
-      }
+        div#videoBig video#video {
+          width: 100%;
+          height: 100%;
+        }
+        .page-header h1 {
+          text-align: center;
+          font-weight: 700;
+          color: #141414;
+        }
+        @media (max-width: 767px){
+          .page-header h1 {
+            font-size: 28px;
+            line-height: 34px;
+          }
+        }
     </style>
   </head>
   <body>
     <header>
       <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
             <a class="navbar-brand" href=".">Festum evento Live Streaming</a>
@@ -49,14 +58,14 @@
         </div>
       </div>
     </header>
-    <div class="container">
+    <div class="container-fluid">
       <div class="page-header">
         <h1>Festum evento Live Streaming</h1>
       </div>
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-12">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 text-center">
               <a id="call" href="#" class="btn btn-success">
                 <span class="glyphicon glyphicon-play"></span> Presenter</a>
               <a id="viewer" href="#" class="btn btn-primary">
@@ -66,12 +75,12 @@
             </div>
           </div>
           <br/>
-          <label class="control-label" for="console" style="display : none !important">Console</label><br><br>
+          <label class="control-label console_lable" for="console" style="display : none !important">Console</label><br><br>
           <div id="console" class="democonsole" style="display : none !important">
             <ul></ul>
           </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-12">
           <div id="videoBig">
             <video id="video" autoplay width="640px" height="480px" poster="img/webrtc.png" controls playsinline></video>
           </div>
@@ -80,7 +89,7 @@
     </div>
 
     <footer>
-      <div class="foot-fixed-bottom">
+      <div class="foot-fixed-bottom pb-3">
         <div class="container text-center">
           <hr/>
           <div class="row">&copy; Festum evento Live Streaming</div>
