@@ -93,7 +93,7 @@ wss.on('connection', function (ws, req) {
 				});
 				ws.on('close', function () {
 					console.log('Connection ' + sessionId + ' closed');
-					stop(sessionId);
+					//stop(sessionId);
 				});
 				ws.on('message', function (_message) {
 					var message = JSON.parse(_message);
