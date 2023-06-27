@@ -282,7 +282,9 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 	if (!presenter || !presenter[sessionId] || presenter[sessionId] == null || presenter[sessionId] == 'null') {
 		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
 		(async () => {
+			console.log('in if condition');
 			let currentPresenter = await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOne({ 'sessionId': sessionId }).lean();
+			console.log('currentPresenter', currentPresenter);
 			if (currentPresenter) {
 				presenter[sessionId] = currentPresenter;
 			} else {
