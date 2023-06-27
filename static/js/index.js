@@ -6,7 +6,11 @@ const oId = urlParams.get('oId');
 const uId = urlParams.get('uId');
 console.log('urlParams oId', oId);
 console.log('urlParams uId', uId);
-var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId);
+if(oId && oId != null && oId != undefined && oId != ''){
+	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&oId='+oId);
+}else{
+	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&uId='+uId);
+}
 var video;
 var webRtcPeer;
 var type = 'pub';
