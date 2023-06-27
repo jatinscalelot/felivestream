@@ -68,6 +68,8 @@ wss.on('connection', function(ws, req) {
 		let oId = queryParams.get('oId');
 		let uId = queryParams.get('uId');
 		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
+		console.log('oId',oId);
+		console.log('uId',uId);
 		if((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '') || (uId && uId != undefined && uId != null && uId != ''))){
 			console.log('BBB');
 			( async () => {
