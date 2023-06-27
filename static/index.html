@@ -22,7 +22,7 @@
     <style>
         #videoBig {
           width: 100%;
-          height: calc(100vh - 150px);
+          height: calc(100vh - 50px);
           padding: 10px;
           border-radius: 10px;
           background: #f1f1f1;
@@ -36,6 +36,17 @@
           font-weight: 700;
           color: #141414;
         }
+        .democonsole {
+    visibility: hidden;
+    height: 0 !important;
+}
+.container-fluid.header_bar {
+    display: flex;
+    align-items: center;
+}
+.container-fluid.header_bar .team_btn {
+    margin-left: auto;
+}
         @media (max-width: 767px){
           .page-header h1 {
             font-size: 28px;
@@ -46,7 +57,7 @@
   </head>
   <body>
     <header>
-      <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar navbar-inverse">
         <div class="container-fluid header_bar">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
