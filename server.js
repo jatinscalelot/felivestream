@@ -138,8 +138,6 @@ wss.on('connection', function (ws, req) {
 							break;
 					}
 				});
-				console.log('presenter -> ',presenter.length);
-				console.log('viewers -> ',viewers.length);
 			})().catch((error) => {
 				console.log('error in main catch', error);
 			});
@@ -341,6 +339,7 @@ function stop(sessionId) {
 	if (presenter[sessionId] && presenter[sessionId] !== null && presenter[sessionId].id && presenter[sessionId].id == sessionId) {
 		for (var i in viewers) {
 			var viewer = viewers[i];
+			console.log('iiiii ->', i);
 			if (viewer.ws) {
 				viewer.ws.send(JSON.stringify({
 					id: 'stopCommunication'
