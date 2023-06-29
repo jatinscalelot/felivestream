@@ -29,7 +29,7 @@ var idCounter = 0;
 var candidatesQueue = {};
 var kurentoClient = null;
 var presenter = [];
-var viewers = [];
+var viewers = {};
 var noPresenterMessage = 'No active presenter. Try again later...';
 var asUrl = url.parse(argv.as_uri);
 var port = asUrl.port;
@@ -128,6 +128,8 @@ wss.on('connection', function (ws, req) {
 						case 'stop':
 							if(oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)){
 								stop(sessionId);
+							}else if(userId && userId != undefined && userId != null && userId != '' && userId != 'null' && mongoose.Types.ObjectId.isValid(userId)){
+								stopByuser(sessionId, userId);
 							}
 							break;
 						case 'onIceCandidate':
@@ -282,7 +284,7 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 			// stop(sessionId);
 			return callback(error);
 		}
-		viewers[userId] = {
+		viewers[sessionId][userId] = {
 			"webRtcEndpoint": webRtcEndpoint,
 			"ws": ws
 		}
@@ -337,13 +339,17 @@ function clearCandidatesQueue(sessionId) {
 		delete candidatesQueue[sessionId];
 	}
 }
+function stopByuser(sessionId, userId){
+	if (viewers[sessionId][userId] && viewers[sessionId][userId] !== null){
+		viewers[sessionId][userId].webRtcEndpoint.release();
+		delete viewers[sessionId][userId];
+	}
+}
 function stop(sessionId) {
 	console.log(presenter[sessionId]);
 	if (presenter[sessionId] && presenter[sessionId] !== null && presenter[sessionId].id && presenter[sessionId].id == sessionId) {
-		console.log('viewers -> ',viewers);
-		for (var i in viewers) {
+		for (var i in viewers[sessionId]) {
 			var viewer = viewers[i];
-			console.log('iiiii ->', viewer);
 			if (viewer.ws) {
 				viewer.ws.send(JSON.stringify({
 					id: 'stopCommunication'
@@ -352,13 +358,14 @@ function stop(sessionId) {
 		}
 		presenter[sessionId].pipeline.release();
 		presenter[sessionId] = null;
-		viewers = [];
-	} else if (viewers[sessionId]) {
-		viewers[sessionId].webRtcEndpoint.release();
-		delete viewers[sessionId];
+		viewers[sessionId] = [];
 	}
+	// else if (viewers[sessionId][userId]) {
+	// 	viewers[sessionId][userId].webRtcEndpoint.release();
+	// 	delete viewers[sessionId][userId];
+	// }
 	clearCandidatesQueue(sessionId);
-	if (viewers.length < 1 && !presenter[sessionId]) {
+	if (viewers[sessionId].length < 1 && !presenter[sessionId]) {
 		console.log('Closing kurento client');
 		try {
 			kurentoClient.close();
@@ -372,9 +379,9 @@ function onIceCandidate(type, sessionId, _candidate) {
 		console.info('Sending presenter candidate');
 		presenter[sessionId].webRtcEndpoint.addIceCandidate(candidate);
 	}
-	else if (viewers[userId] && viewers[userId].webRtcEndpoint) {
+	else if (viewers[sessionId][userId] && viewers[sessionId][userId].webRtcEndpoint) {
 		console.info('Sending viewer candidate');
-		viewers[userId].webRtcEndpoint.addIceCandidate(candidate);
+		viewers[sessionId][userId].webRtcEndpoint.addIceCandidate(candidate);
 	}
 	else {
 		console.info('Queueing candidate');
@@ -384,9 +391,6 @@ function onIceCandidate(type, sessionId, _candidate) {
 		candidatesQueue[sessionId].push(candidate);
 	}
 }
-// app.use(express.static(path.join(__dirname, 'static')), (req, res) => {
-// 	console.log('req', req);
-// });
 app.get('/:sessionId', function (req, res, next) {
 	console.log('req params', req.params);
 	res.redirect('https://livestream.festumevento.com/?sessionId=' + req.params.sessionId)
