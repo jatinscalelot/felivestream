@@ -54,7 +54,7 @@ ws.onmessage = function(message) {
 	default:
 		console.error('Unrecognized message', parsedMessage);
 	}
-	console.log('total no of user :', wss.clients.length);
+	console.log('total no of user :', ws.clients.length);
 }
 
 function presenterResponse(message) {
