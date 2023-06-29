@@ -154,11 +154,13 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
-
-if(oId && oId != null && oId != undefined && oId != ''){
-	document.getElementById('call').style.display = "block";
-	document.getElementById('viewer').style.display = "none";
-}else{
-	document.getElementById('call').style.display = "none";
-	document.getElementById('viewer').style.display = "block";
+document.onload = function () {
+	if(oId && oId != null && oId != undefined && oId != ''){
+		document.getElementById('call').style.display = "block";
+		document.getElementById('viewer').style.display = "none";
+	}else{
+		document.getElementById('call').style.display = "none";
+		document.getElementById('viewer').style.display = "block";
+	}
 }
+
