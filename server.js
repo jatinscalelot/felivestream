@@ -58,7 +58,7 @@ function nextUniqueId() {
 }
 var userId = null;
 wss.on('connection', function (ws, req) {
-	var userId = nextUniqueId();
+	// var userId = nextUniqueId();
 	// var sessionId = nextUniqueId();
 	const queryString = req.url.split('?')[1];
 	if (queryString) {
@@ -74,6 +74,7 @@ wss.on('connection', function (ws, req) {
 				if (oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)) {
 					organiserData = await primary.model(constants.MODELS.organizers, organiserModel).findById(oId).lean();
 				} else {
+					userId = uId;
 					userData = await primary.model(constants.MODELS.users, userModel).findById(uId).lean();
 				}
 				//console.log('livestreamData', livestreamData);
