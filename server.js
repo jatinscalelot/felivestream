@@ -59,7 +59,7 @@ function nextUniqueId() {
 var userId = null;
 wss.on('connection', function (ws, req) {
 	var userId = nextUniqueId();
-	const ip = req.socket.remoteAddress;
+	const ip = req.socket;
 	console.log('ip -> ', ip);
 	const fromhip = req.headers['x-forwarded-for']; //.split(',')[0].trim()
 	console.log('fromhip -> ', fromhip);
