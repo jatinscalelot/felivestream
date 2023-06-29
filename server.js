@@ -30,6 +30,8 @@ var candidatesQueue = {};
 var kurentoClient = null;
 var presenter = [];
 var viewers = [];
+console.log('presenter -> ',presenter.length);
+console.log('viewers -> ',viewers.length);
 var noPresenterMessage = 'No active presenter. Try again later...';
 var asUrl = url.parse(argv.as_uri);
 var port = asUrl.port;
