@@ -340,6 +340,9 @@ function clearCandidatesQueue(sessionId) {
 	}
 }
 function stopByuser(sessionId, userId){
+	console.log('viewers', viewers);
+	console.log('viewers -> sessionId', viewers[sessionId]);
+	console.log('viewers -> sessionId -> userId', viewers[sessionId][userId]);
 	if (viewers[sessionId][userId] && viewers[sessionId][userId] !== null){
 		viewers[sessionId][userId].webRtcEndpoint.release();
 		delete viewers[sessionId][userId];
@@ -348,6 +351,8 @@ function stopByuser(sessionId, userId){
 function stop(sessionId) {
 	console.log(presenter[sessionId]);
 	if (presenter[sessionId] && presenter[sessionId] !== null && presenter[sessionId].id && presenter[sessionId].id == sessionId) {
+		console.log('viewers', viewers);
+	console.log('viewers -> sessionId', viewers[sessionId]);
 		for (var i in viewers[sessionId]) {
 			var viewer = viewers[i];
 			if (viewer.ws) {
