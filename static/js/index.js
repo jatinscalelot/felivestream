@@ -25,11 +25,11 @@ window.onload = function() {
 	document.getElementById('viewer').addEventListener('click', function() { viewer(); } );
 	document.getElementById('terminate').addEventListener('click', function() { stop(); } );
 
-	if(oId && oId != null && oId != undefined && oId != ''){
-		document.getElementById("call").click();
-	}else{
-		document.getElementById("viewer").click();
-	}
+	// if(oId && oId != null && oId != undefined && oId != ''){
+	// 	document.getElementById("call").click();
+	// }else{
+	// 	document.getElementById("viewer").click();
+	// }
 	
 }
 window.onbeforeunload = function() {
