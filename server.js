@@ -339,9 +339,10 @@ function clearCandidatesQueue(sessionId) {
 function stop(sessionId) {
 	console.log(presenter[sessionId]);
 	if (presenter[sessionId] && presenter[sessionId] !== null && presenter[sessionId].id && presenter[sessionId].id == sessionId) {
+		console.log('viewers -> ',viewers);
 		for (var i in viewers) {
 			var viewer = viewers[i];
-			console.log('iiiii ->', i);
+			console.log('iiiii ->', viewer);
 			if (viewer.ws) {
 				viewer.ws.send(JSON.stringify({
 					id: 'stopCommunication'
