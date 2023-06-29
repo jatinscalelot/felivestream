@@ -125,7 +125,9 @@ wss.on('connection', function (ws, req) {
 							});
 							break;
 						case 'stop':
-							//stop(sessionId);
+							if(oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)){
+								stop(sessionId);
+							}
 							break;
 						case 'onIceCandidate':
 							onIceCandidate(message.type, sessionId, message.candidate);
