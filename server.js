@@ -61,24 +61,16 @@ function nextUniqueId() {
 var userId = null;
 wss.on('connection', function (ws, req) {
 	var userId = nextUniqueId();
-	console.log('req -> ', req);
 	// var sessionId = nextUniqueId();
 	const queryString = req.url.split('?')[1];
-	console.log('queryString', queryString);
 	if (queryString) {
-		console.log('AAA');
 		const queryParams = new URLSearchParams(queryString);
-		console.log('queryParams 111 : ', queryParams);
 		var sessionId = queryParams.get('sessionId');
 		let oId = queryParams.get('oId');
 		let uId = queryParams.get('uId');
 		let primary = mongoConnection.useDb(constants.DEFAULT_DB);
-		console.log('oId', oId);
-		console.log('uId', uId);
 		if ((sessionId && sessionId != undefined && sessionId != '' && sessionId != null) && ((oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)) || (uId && uId != undefined && uId != null && uId != '' && uId != 'null' && mongoose.Types.ObjectId.isValid(uId)))) {
-			console.log('BBB');
 			(async () => {
-				console.log('CCC');
 				let livestreamData = await primary.model(constants.MODELS.livestreams, lstreamModel).findById(sessionId).lean();
 				let organiserData = {}; let userData = {};
 				if (oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)) {
