@@ -12,6 +12,13 @@ var video;
 var webRtcPeer;
 var type = 'pub';
 window.onload = function() {
+	if(oId && oId != null && oId != undefined && oId != ''){
+		document.getElementById('call').style.display = "block";
+		document.getElementById('viewer').style.display = "none";
+	}else{
+		document.getElementById('call').style.display = "none";
+		document.getElementById('viewer').style.display = "block";
+	}
 	console = new Console();
 	video = document.getElementById('video');
 	document.getElementById('call').addEventListener('click', function() { presenter(); } );
