@@ -128,9 +128,10 @@ wss.on('connection', function (ws, req) {
 						case 'stop':
 							if(oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)){
 								stop(sessionId);
-							}else if(userId && userId != undefined && userId != null && userId != '' && userId != 'null' && mongoose.Types.ObjectId.isValid(userId)){
-								stopByuser(sessionId, userId);
 							}
+							// else if(userId && userId != undefined && userId != null && userId != '' && userId != 'null' && mongoose.Types.ObjectId.isValid(userId)){
+							// 	stopByuser(sessionId, userId);
+							// }
 							break;
 						case 'onIceCandidate':
 							onIceCandidate(message.type, sessionId, message.candidate);
@@ -339,20 +340,20 @@ function clearCandidatesQueue(sessionId) {
 		delete candidatesQueue[sessionId];
 	}
 }
-function stopByuser(sessionId, userId){
-	console.log('viewers', viewers);
-	console.log('viewers -> sessionId', viewers[sessionId]);
-	console.log('viewers -> sessionId -> userId', viewers[sessionId][userId]);
-	if (viewers[sessionId][userId] && viewers[sessionId][userId] !== null){
-		viewers[sessionId][userId].webRtcEndpoint.release();
-		delete viewers[sessionId][userId];
-	}
-}
+// function stopByuser(sessionId, userId){
+// 	console.log('viewers', viewers);
+// 	console.log('viewers -> sessionId', viewers[sessionId]);
+// 	console.log('viewers -> sessionId -> userId', viewers[sessionId][userId]);
+// 	if (viewers[sessionId][userId] && viewers[sessionId][userId] !== null){
+// 		viewers[sessionId][userId].webRtcEndpoint.release();
+// 		delete viewers[sessionId][userId];
+// 	}
+// }
 function stop(sessionId) {
 	console.log(presenter[sessionId]);
 	if (presenter[sessionId] && presenter[sessionId] !== null && presenter[sessionId].id && presenter[sessionId].id == sessionId) {
 		console.log('viewers', viewers);
-	console.log('viewers -> sessionId', viewers[sessionId]);
+		console.log('viewers -> sessionId', viewers[sessionId]);
 		for (var i in viewers[sessionId]) {
 			var viewer = viewers[i];
 			if (viewer.ws) {
