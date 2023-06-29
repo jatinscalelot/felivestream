@@ -381,13 +381,13 @@ function onIceCandidate(type, sessionId, _candidate) {
 		candidatesQueue[sessionId].push(candidate);
 	}
 }
-app.use(express.static(path.join(__dirname, 'static')), (req, res) => {
-	console.log('req', req);
-});
+// app.use(express.static(path.join(__dirname, 'static')), (req, res) => {
+// 	console.log('req', req);
+// });
 app.get('/:sessionId', function (req, res, next) {
 	console.log('req params', req.params);
 	res.redirect('https://livestream.festumevento.com/?sessionId=' + req.params.sessionId)
 });
-// app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'static')));
 
 
