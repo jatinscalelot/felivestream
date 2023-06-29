@@ -49,6 +49,20 @@
 }
 .container-fluid.header_bar .team_btn {
     margin-left: auto;
+    display: flex;
+}
+.container-fluid.header_bar .team_btn a:not(:last-child) {
+    margin-right: 10px;
+}
+.container-fluid.header_bar .team_btn a.btn-success, 
+.container-fluid.header_bar .team_btn a.btn-primary {
+    background: #FE6676;
+    border: 1px solid #FE6676;
+}
+.container-fluid.header_bar .team_btn a.btn-danger {
+    color: #141414;
+    background-color: white;
+    border: 1px solid #141414;
 }
 .navbar {
     margin-bottom: 0;
