@@ -18,126 +18,8 @@
   <script src="bower_components/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
   <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
   <script src="js/index.js"></script>
-  <title>Festum evento Live Streaming</title>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-    }
-    #videoBig {
-      width: 100%;
-      height: calc(100vh - 52px);
-      padding: 10px;
-      background: #f1f1f1;
-    }
-    div#videoBig video#video {
-      width: 100%;
-      height: 100%;
-    }
-    .page-header h1 {
-      text-align: center;
-      font-weight: 700;
-      color: #141414;
-    }
-    .democonsole {
-      visibility: hidden;
-      height: 0 !important;
-    }
-    .container-fluid.header_bar {
-      display: flex;
-      align-items: center;
-    }
-    .container-fluid.header_bar .team_btn {
-      margin-left: auto;
-      display: flex;
-    }
-    .container-fluid.header_bar .team_btn a:not(:last-child) {
-      margin-right: 10px;
-    }
-    .container-fluid.header_bar .team_btn a.btn-success,
-    .container-fluid.header_bar .team_btn a.btn-primary {
-      background: #FE6676;
-      border: 1px solid #FE6676;
-    }
-    .container-fluid.header_bar .team_btn a.btn-danger {
-      color: #141414;
-      background-color: white;
-      border: 1px solid #141414;
-    }
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    .liveviewersdiv {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #b1b1b1;
-    font-size: 18px;
-}
-.liveviewersdiv span#liveviewers {
-    color: #FE6676;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-.navbar-header button {
-    display: none;
-}
-    @media (max-width: 767px) {
-      .page-header h1 {
-        font-size: 28px;
-        line-height: 34px;
-      }
-    }
-    @media (max-width: 700px){
-      #videoBig {
-      height: calc(100vh - 95px);
-    }
-      .container-fluid.header_bar {
-    flex-wrap: wrap;
-}
-.navbar-header a {
-    display: block;
-    text-align: center;
-    width: 100%;
-    height: auto;
-}
-
-.navbar-header {
-    margin: 0 !important;
-    width: 100%;
-}
-.liveviewersdiv {
-    position: relative;
-    transform: translateX(0);
-    left: 0;
-    width: auto;
-    padding-bottom: 10px;
-}
-.container-fluid.header_bar .team_btn {
-    padding-bottom: 10px;
-}
-    }
-
-    @media (max-width: 374px){
-      #videoBig {
-      height: calc(100vh - 121px);
-    }
-      .liveviewersdiv {
-    width: 100%;
-    text-align: center;
-}
-.container-fluid.header_bar .team_btn {
-    margin: 0 auto;
-}
-.navbar-inverse .navbar-brand {
-    padding: 10px 0;
-}
-    }
-  </style>
-  <!-- https://cdnjs.cloudflare.com/ajax/libs/video.js/7.5.0/video-js.min.css
-    https://cdnjs.cloudflare.com/ajax/libs/video.js-chromecast/2.0.9/videojs-chromecast.css
-    //cdn.jsdelivr.net/gh/onigetoc/videojs-unmute/dist/videojs-unmute.min.css -->
+  <link rel="stylesheet" href="css/custom.css">
+  <title>Festum Evento Live Streaming</title>
 </head>
 <body>
   <header>
@@ -145,7 +27,7 @@
       <div class="container-fluid header_bar">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
-          <a class="navbar-brand" href=".">Festum evento Live Streaming</a>
+          <a class="navbar-brand" href=".">Festum Evento Live Streaming</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         </div>
