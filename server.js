@@ -353,7 +353,7 @@ function stop(sessionId) {
 		}
 		presenter[sessionId].pipeline.release();
 		presenter[sessionId] = null;
-		viewers = [];
+		// viewers = [];
 	} else if (viewers[sessionId]) {
 		viewers[sessionId].webRtcEndpoint.release();
 		delete viewers[sessionId];
