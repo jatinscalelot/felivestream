@@ -284,7 +284,8 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 		}
 		viewers[userId] = {
 			"webRtcEndpoint": webRtcEndpoint,
-			"ws": ws
+			"ws": ws,
+			"sessionId" : sessionId
 		}
 		if (presenter[sessionId] && presenter[sessionId] === null) {
 			//stop(sessionId);
@@ -344,7 +345,7 @@ function stop(sessionId) {
 		for (var i in viewers) {
 			var viewer = viewers[i];
 			console.log('iiiii ->', viewer);
-			if (viewer.ws) {
+			if (viewer.ws && viewer.sessionId == sessionId) {
 				viewer.ws.send(JSON.stringify({
 					id: 'stopCommunication'
 				}));
