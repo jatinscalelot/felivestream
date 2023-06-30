@@ -3,56 +3,49 @@ const urlParams = new URLSearchParams(window.location.search);
 const sessionId = urlParams.get('sessionId');
 const oId = urlParams.get('oId');
 const uId = urlParams.get('uId');
-if(oId && oId != null && oId != undefined && oId != ''){
-	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&oId='+oId);
-}else{
-	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId='+sessionId+'&uId='+uId);
+if (oId && oId != null && oId != undefined && oId != '') {
+	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId=' + sessionId + '&oId=' + oId);
+} else {
+	var ws = new WebSocket('wss://' + location.host + '/one2many?sessionId=' + sessionId + '&uId=' + uId);
 }
 var video;
 var webRtcPeer;
 var type = 'pub';
-window.onload = function() {
-	if(oId && oId != null && oId != undefined && oId != ''){
+window.onload = function () {
+	if (oId && oId != null && oId != undefined && oId != '') {
 		document.getElementById('call').style.display = "block";
 		document.getElementById('viewer').style.display = "none";
-	}else{
+	} else {
 		document.getElementById('call').style.display = "none";
 		document.getElementById('viewer').style.display = "block";
 	}
 	console = new Console();
 	video = document.getElementById('video');
-	document.getElementById('call').addEventListener('click', function() { presenter(); } );
-	document.getElementById('viewer').addEventListener('click', function() { viewer(); } );
-	document.getElementById('terminate').addEventListener('click', function() { stop(); } );
-
-	// if(oId && oId != null && oId != undefined && oId != ''){
-	// 	document.getElementById("call").click();
-	// }else{
-	// 	document.getElementById("viewer").click();
-	// }
-	
+	document.getElementById('call').addEventListener('click', function () { presenter(); });
+	document.getElementById('viewer').addEventListener('click', function () { viewer(); });
+	document.getElementById('terminate').addEventListener('click', function () { stop(); });
 }
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
 	ws.close();
 }
-ws.onmessage = function(message) {
+ws.onmessage = function (message) {
 	var parsedMessage = JSON.parse(message.data);
 	console.info('Received message: ' + message.data);
 	switch (parsedMessage.id) {
-	case 'presenterResponse':
-		presenterResponse(parsedMessage);
-		break;
-	case 'viewerResponse':
-		viewerResponse(parsedMessage);
-		break;
-	case 'stopCommunication':
-		dispose();
-		break;
-	case 'iceCandidate':
-		webRtcPeer.addIceCandidate(parsedMessage.candidate)
-		break;
-	default:
-		console.error('Unrecognized message', parsedMessage);
+		case 'presenterResponse':
+			presenterResponse(parsedMessage);
+			break;
+		case 'viewerResponse':
+			viewerResponse(parsedMessage);
+			break;
+		case 'stopCommunication':
+			dispose();
+			break;
+		case 'iceCandidate':
+			webRtcPeer.addIceCandidate(parsedMessage.candidate)
+			break;
+		default:
+			console.error('Unrecognized message', parsedMessage);
 	}
 	console.log('total no of user :', ws);
 }
@@ -80,20 +73,20 @@ function presenter() {
 		showSpinner(video);
 		var options = {
 			localVideo: video,
-			onicecandidate : onIceCandidate
-	    }
-		webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options, function(error) {
-			if(error) return onError(error);
+			onicecandidate: onIceCandidate
+		}
+		webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options, function (error) {
+			if (error) return onError(error);
 
 			this.generateOffer(onOfferPresenter);
 		});
 	}
 }
 function onOfferPresenter(error, offerSdp) {
-    if (error) return onError(error);
+	if (error) return onError(error);
 	var message = {
-		id : 'presenter',
-		sdpOffer : offerSdp
+		id: 'presenter',
+		sdpOffer: offerSdp
 	};
 	sendMessage(message);
 }
@@ -103,10 +96,10 @@ function viewer() {
 		showSpinner(video);
 		var options = {
 			remoteVideo: video,
-			onicecandidate : onIceCandidate
+			onicecandidate: onIceCandidate
 		}
-		webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options, function(error) {
-			if(error) return onError(error);
+		webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options, function (error) {
+			if (error) return onError(error);
 
 			this.generateOffer(onOfferViewer);
 		});
@@ -115,23 +108,23 @@ function viewer() {
 function onOfferViewer(error, offerSdp) {
 	if (error) return onError(error)
 	var message = {
-		id : 'viewer',
-		sdpOffer : offerSdp
+		id: 'viewer',
+		sdpOffer: offerSdp
 	}
 	sendMessage(message);
 }
 function onIceCandidate(candidate) {
-	   console.log('Local candidate' + JSON.stringify(candidate));
-	   var message = {
-	      id : 'onIceCandidate',
-	      candidate : candidate
-	   }
-	   sendMessage(message);
+	console.log('Local candidate' + JSON.stringify(candidate));
+	var message = {
+		id: 'onIceCandidate',
+		candidate: candidate
+	}
+	sendMessage(message);
 }
 function stop() {
 	if (webRtcPeer) {
 		var message = {
-				id : 'stop'
+			id: 'stop'
 		}
 		sendMessage(message);
 		dispose();
@@ -166,8 +159,15 @@ function hideSpinner() {
 /**
  * Lightbox utility (to display media pipeline image in a modal dialog)
  */
-$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+$(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
+setInterval(function () {
+	$.ajax({
+		url: "/count", success: function (result) {
+			console.log('result',result);
+		}
+	});
+}, 1000);
 

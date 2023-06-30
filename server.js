@@ -8,6 +8,7 @@ var kurento = require('kurento-client');
 var fs = require('fs');
 var https = require('https');
 let mongoose = require("mongoose");
+const async = require('async');
 const mongoConnection = require('./utilities/connections');
 const constants = require('./utilities/constants');
 const lstreamModel = require('./models/livestreams.model');
@@ -388,6 +389,9 @@ function onIceCandidate(type, sessionId, _candidate) {
 // app.use(express.static(path.join(__dirname, 'static')), (req, res) => {
 // 	console.log('req', req);
 // });
+app.get('/count', async (req, res) => {
+	console.log('req from get->', req);
+});
 app.get('/:sessionId', function (req, res, next) {
 	console.log('req params', req.params);
 	res.redirect('https://livestream.festumevento.com/?sessionId=' + req.params.sessionId)
