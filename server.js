@@ -126,7 +126,7 @@ wss.on('connection', function (ws, req) {
 							});
 							break;
 						case 'stop':
-							if(oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)){
+							if (oId && oId != undefined && oId != null && oId != '' && oId != 'null' && mongoose.Types.ObjectId.isValid(oId)) {
 								stop(sessionId);
 							}
 							break;
@@ -285,7 +285,7 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 		viewers[userId] = {
 			"webRtcEndpoint": webRtcEndpoint,
 			"ws": ws,
-			"sessionId" : sessionId
+			"sessionId": sessionId
 		}
 		if (presenter[sessionId] && presenter[sessionId] === null) {
 			//stop(sessionId);
@@ -341,7 +341,7 @@ function clearCandidatesQueue(sessionId) {
 function stop(sessionId) {
 	console.log(presenter[sessionId]);
 	if (presenter[sessionId] && presenter[sessionId] !== null && presenter[sessionId].id && presenter[sessionId].id == sessionId) {
-		console.log('viewers -> ',viewers);
+		console.log('viewers -> ', viewers);
 		for (var i in viewers) {
 			var viewer = viewers[i];
 			console.log('iiiii ->', viewer);

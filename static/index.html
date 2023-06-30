@@ -1,114 +1,111 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="cache-control" content="no-cache">
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="expires" content="0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">  
-    <!-- <link rel="shortcut icon" href="img/kurento.png" type="image/png" /> -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bower_components/demo-console/index.css">
-    <link rel="stylesheet" href="bower_components/ekko-lightbox/dist/ekko-lightbox.min.css">
-    <link rel="stylesheet" href="css/kurento.css">
-    <script src="bower_components/webrtc-adapter/release/adapter.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/demo-console/index.js"></script>
-    <script src="bower_components/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
-    <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
-    <script src="js/index.js"></script>
-    <title>Festum evento Live Streaming</title>
-    <style>
-      body{
-        padding: 0;
-        margin: 0;
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/demo-console/index.css">
+  <link rel="stylesheet" href="bower_components/ekko-lightbox/dist/ekko-lightbox.min.css">
+  <link rel="stylesheet" href="css/kurento.css">
+  <script src="bower_components/webrtc-adapter/release/adapter.js"></script>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/demo-console/index.js"></script>
+  <script src="bower_components/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+  <script src="bower_components/kurento-utils/js/kurento-utils.js"></script>
+  <script src="js/index.js"></script>
+  <title>Festum evento Live Streaming</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    #videoBig {
+      width: 100%;
+      height: calc(100vh - 52px);
+      padding: 10px;
+      background: #f1f1f1;
+    }
+    div#videoBig video#video {
+      width: 100%;
+      height: 100%;
+    }
+    .page-header h1 {
+      text-align: center;
+      font-weight: 700;
+      color: #141414;
+    }
+    .democonsole {
+      visibility: hidden;
+      height: 0 !important;
+    }
+    .container-fluid.header_bar {
+      display: flex;
+      align-items: center;
+    }
+    .container-fluid.header_bar .team_btn {
+      margin-left: auto;
+      display: flex;
+    }
+    .container-fluid.header_bar .team_btn a:not(:last-child) {
+      margin-right: 10px;
+    }
+    .container-fluid.header_bar .team_btn a.btn-success,
+    .container-fluid.header_bar .team_btn a.btn-primary {
+      background: #FE6676;
+      border: 1px solid #FE6676;
+    }
+    .container-fluid.header_bar .team_btn a.btn-danger {
+      color: #141414;
+      background-color: white;
+      border: 1px solid #141414;
+    }
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    @media (max-width: 767px) {
+      .page-header h1 {
+        font-size: 28px;
+        line-height: 34px;
       }
-        #videoBig {
-          width: 100%;
-          height: calc(100vh - 52px);
-          padding: 10px;
-          background: #f1f1f1;
-        }
-        div#videoBig video#video {
-          width: 100%;
-          height: 100%;
-        }
-        .page-header h1 {
-          text-align: center;
-          font-weight: 700;
-          color: #141414;
-        }
-        .democonsole {
-    visibility: hidden;
-    height: 0 !important;
-}
-.container-fluid.header_bar {
-    display: flex;
-    align-items: center;
-}
-.container-fluid.header_bar .team_btn {
-    margin-left: auto;
-    display: flex;
-}
-.container-fluid.header_bar .team_btn a:not(:last-child) {
-    margin-right: 10px;
-}
-.container-fluid.header_bar .team_btn a.btn-success, 
-.container-fluid.header_bar .team_btn a.btn-primary {
-    background: #FE6676;
-    border: 1px solid #FE6676;
-}
-.container-fluid.header_bar .team_btn a.btn-danger {
-    color: #141414;
-    background-color: white;
-    border: 1px solid #141414;
-}
-.navbar {
-    margin-bottom: 0;
-    border-radius: 0;
-}
-        @media (max-width: 767px){
-          .page-header h1 {
-            font-size: 28px;
-            line-height: 34px;
-          }
-        }
-    </style>
-    
-    <!-- https://cdnjs.cloudflare.com/ajax/libs/video.js/7.5.0/video-js.min.css
+    }
+  </style>
+  <!-- https://cdnjs.cloudflare.com/ajax/libs/video.js/7.5.0/video-js.min.css
     https://cdnjs.cloudflare.com/ajax/libs/video.js-chromecast/2.0.9/videojs-chromecast.css
     //cdn.jsdelivr.net/gh/onigetoc/videojs-unmute/dist/videojs-unmute.min.css -->
-  </head>
-  <body>
-    <header>
-      <div class="navbar navbar-inverse">
-        <div class="container-fluid header_bar">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
-            <a class="navbar-brand" href=".">Festum evento Live Streaming</a>
-          </div>
-          <div class="collapse navbar-collapse"
-            id="bs-example-navbar-collapse-1">
-          </div>
-          <div class="team_btn">
-            <a id="call" href="#" class="btn btn-success">
-              <span class="glyphicon glyphicon-play"></span> Stream Now</a>
-            <a id="viewer" href="#" class="btn btn-primary">
-              <span class="glyphicon glyphicon-user"></span> View Live</a>
-            <a id="terminate" href="#" class="btn btn-danger">
-              <span class="glyphicon glyphicon-stop"></span> Stop</a>
-          </div>
+</head>
+<body>
+  <header>
+    <div class="navbar navbar-inverse">
+      <div class="container-fluid header_bar">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"></button>
+          <a class="navbar-brand" href=".">Festum evento Live Streaming</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        </div>
+        <div class="team_btn">
+          <a id="call" href="#" class="btn btn-success">
+            <span class="glyphicon glyphicon-play"></span> Stream Now</a>
+          <a id="viewer" href="#" class="btn btn-primary">
+            <span class="glyphicon glyphicon-user"></span> View Live</a>
+          <a id="terminate" href="#" class="btn btn-danger">
+            <span class="glyphicon glyphicon-stop"></span> Stop</a>
         </div>
       </div>
-    </header>
-    <div class="container-fluid">
-      <!-- <div class="page-header">
+    </div>
+  </header>
+  <div class="container-fluid">
+    <!-- <div class="page-header">
         <h1>Festum evento Live Streaming</h1>
       </div> -->
-      <div class="row">
-        <!-- <div class="col-12">
+    <div class="row">
+      <!-- <div class="col-12">
           <div class="row">
             <div class="team_btn">
               <a id="call" href="#" class="btn btn-success">
@@ -125,15 +122,15 @@
             <ul></ul>
           </div>
         </div> -->
-        <div class="col-12">
-          <div id="videoBig">
-            <video id="video" autoplay width="640px" height="480px" poster="img/webrtc.png"  muted controls playsinline autoplay preload="none"></video>
-          </div>
+      <div class="col-12">
+        <div id="videoBig">
+          <video id="video" autoplay width="640px" height="480px" poster="img/webrtc.png" muted controls playsinline
+            autoplay preload="none"></video>
         </div>
       </div>
     </div>
-
-    <!-- <footer>
+  </div>
+  <!-- <footer>
       <div class="foot-fixed-bottom pb-3">
         <div class="container text-center">
           <hr/>
@@ -158,14 +155,13 @@
         </div>
       </div>
     </footer> -->
-
-  </body>
+</body>
 </html>
 <script>
   function getParams() {
     var idx = document.URL.indexOf('?');
     var params = {};
     console.log('idx', idx);
-}
-getParams();
+  }
+  getParams();
 </script>
