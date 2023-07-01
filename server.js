@@ -389,8 +389,10 @@ function onIceCandidate(type, sessionId, _candidate) {
 // app.use(express.static(path.join(__dirname, 'static')), (req, res) => {
 // 	console.log('req', req);
 // });
-app.get('/count', async (req, res) => {
+app.post('/count', async (req, res) => {
 	console.log('req from get->', req);
+	res.json({ key: 'value'});
+	res.end();
 });
 app.get('/:sessionId', function (req, res, next) {
 	console.log('req params', req.params);

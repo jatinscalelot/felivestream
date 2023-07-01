@@ -164,10 +164,9 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	$(this).ekkoLightbox();
 });
 setInterval(function () {
-	$.ajax({
-		url: "/count", success: function (result) {
-			console.log('result',result);
-		}
+	$.post("/count", { sessionId: sessionId }, function (response) {
+		alert("success");
+		console.log("response", response);
 	});
 }, 1000);
 
