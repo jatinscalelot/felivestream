@@ -163,21 +163,21 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
-setInterval(function () {
+// setInterval(function () {
 
-	$.ajax({
-		contentType: 'application/json',
-		data: JSON.stringify({sessionId : sessionId}),
-		dataType: 'json',
-		success: function(data){
-			console.log("response", data);
-		},
-		error: function(){
-			app.log("Device control failed");
-		},
-		processData: false,
-		type: 'GET',
-		url: '/count'
-	});
-}, 10000);
+// 	$.ajax({
+// 		contentType: 'application/json',
+// 		data: JSON.stringify({sessionId : sessionId}),
+// 		dataType: 'json',
+// 		success: function(data){
+// 			console.log("response", data);
+// 		},
+// 		error: function(){
+// 			app.log("Device control failed");
+// 		},
+// 		processData: false,
+// 		type: 'GET',
+// 		url: '/count'
+// 	});
+// }, 10000);
 
