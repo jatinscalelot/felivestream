@@ -164,8 +164,22 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	$(this).ekkoLightbox();
 });
 setInterval(function () {
-	$.post("/count", { sessionId: sessionId }, function (response) {
-		console.log("response", response);
+
+	$.ajax({
+		contentType: 'application/json',
+		data: {
+			sessionId: sessionId
+		},
+		dataType: 'json',
+		success: function(data){
+			console.log("response", data);
+		},
+		error: function(){
+			app.log("Device control failed");
+		},
+		processData: false,
+		type: 'POST',
+		url: '/count'
 	});
 }, 10000);
 
