@@ -390,7 +390,7 @@ function onIceCandidate(type, sessionId, _candidate) {
 // 	console.log('req', req);
 // });
 app.post('/count', async (req, res) => {
-	console.log('req from get->', req.body);
+	console.log('req from get->', req);
 	res.json({ key: 'value'});
 	res.end();
 });
