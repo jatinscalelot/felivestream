@@ -167,7 +167,7 @@ setInterval(function () {
 
 	$.ajax({
 		contentType: 'application/json',
-		data: JSON.stringify({ sessionId: sessionId }),
+		data: { sessionId: sessionId },
 		dataType: 'json',
 		success: function(data){
 			console.log("response", data);
