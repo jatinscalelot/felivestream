@@ -176,7 +176,7 @@ setInterval(function () {
 			app.log("Device control failed");
 		},
 		processData: false,
-		type: 'POST',
+		type: 'GET',
 		url: '/count'
 	});
 }, 10000);
