@@ -165,7 +165,6 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 });
 setInterval(function () {
 	$.post("/count", { sessionId: sessionId }, function (response) {
-		alert("success");
 		console.log("response", response);
 	});
 }, 1000);
