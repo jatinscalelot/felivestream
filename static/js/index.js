@@ -167,5 +167,5 @@ setInterval(function () {
 	$.post("/count", { sessionId: sessionId }, function (response) {
 		console.log("response", response);
 	});
-}, 1000);
+}, 10000);
 
