@@ -167,7 +167,7 @@ setInterval(function () {
 		contentType: 'application/json',
 		dataType: 'json',
 		success: function(data){
-			console.log("response", data);
+			$('#liveviewers').text(data.count);
 		},
 		error: function(){
 			app.log("Device control failed");
