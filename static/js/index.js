@@ -1,4 +1,3 @@
-
 const urlParams = new URLSearchParams(window.location.search);
 const sessionId = urlParams.get('sessionId');
 const oId = urlParams.get('oId');
@@ -163,21 +162,19 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
-// setInterval(function () {
-
-// 	$.ajax({
-// 		contentType: 'application/json',
-// 		data: JSON.stringify({sessionId : sessionId}),
-// 		dataType: 'json',
-// 		success: function(data){
-// 			console.log("response", data);
-// 		},
-// 		error: function(){
-// 			app.log("Device control failed");
-// 		},
-// 		processData: false,
-// 		type: 'GET',
-// 		url: '/count'
-// 	});
-// }, 10000);
+setInterval(function () {
+	$.ajax({
+		contentType: 'application/json',
+		dataType: 'json',
+		success: function(data){
+			console.log("response", data);
+		},
+		error: function(){
+			app.log("Device control failed");
+		},
+		processData: false,
+		type: 'GET',
+		url: '/count?apiKey='+sessionId
+	});
+}, 10000);
 
