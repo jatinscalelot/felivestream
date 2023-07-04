@@ -390,9 +390,20 @@ function onIceCandidate(type, sessionId, _candidate) {
 // 	console.log('req', req);
 // });
 app.get('/count', async (req, res) => {
-	console.log('req from get->', req.query);
-	res.json({ key: 'value'});
-	res.end();
+	if(req.query.apiKey && req.query.apiKey != '' && req.query.apiKey != undefined && req.query.apiKey != null && mongoose.Types.ObjectId.isValid(req.query.apiKey)){
+		let i = 0;
+		for (var i in viewers) {
+			var viewer = viewers[i];
+			if (viewer.ws && viewer.sessionId == req.query.apiKey) {
+				++i;
+			}
+		}
+		res.json({ count: i});
+		res.end();
+	}else{
+		res.json({ count: 0});
+		res.end();
+	}
 });
 app.get('/:sessionId', function (req, res, next) {
 	console.log('req params', req.params);
