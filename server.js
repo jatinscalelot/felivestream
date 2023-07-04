@@ -391,14 +391,14 @@ function onIceCandidate(type, sessionId, _candidate) {
 // });
 app.get('/count', async (req, res) => {
 	if(req.query.apiKey && req.query.apiKey != '' && req.query.apiKey != undefined && req.query.apiKey != null && mongoose.Types.ObjectId.isValid(req.query.apiKey)){
-		let i = 0;
+		let x = 0;
 		for (var i in viewers) {
 			var viewer = viewers[i];
 			if (viewer.ws && viewer.sessionId == req.query.apiKey) {
-				++i;
+				++x;
 			}
 		}
-		res.json({ count: i});
+		res.json({ count: x});
 		res.end();
 	}else{
 		res.json({ count: 0});
