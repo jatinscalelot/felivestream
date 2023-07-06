@@ -74,12 +74,19 @@ wss.on('connection', function (ws, req) {
 					organiserData = await primary.model(constants.MODELS.organizers, organiserModel).findById(oId).lean();
 				} else {
 					userId = uId;
+					if (viewers[userId]) {
+						if (viewers[userId].ws && viewers[userId].sessionId == sessionId) {
+							viewers[userId].ws.send(JSON.stringify({
+								id: 'stopCommunication'
+							}));
+							delete viewers[userId];
+						}
+					}
 					userData = await primary.model(constants.MODELS.users, userModel).findById(uId).lean();
 				}
 				//console.log('livestreamData', livestreamData);
 				//console.log('organiserData', organiserData);
 				//console.log('userData', userData);
-				console.log('Connection received with sessionId ' + sessionId);
 				ws.on('error', function (error) {
 					console.log('Connection ' + sessionId + ' error');
 					stop(sessionId);
@@ -351,7 +358,7 @@ function onIceCandidate(type, sessionId, _candidate) {
 // 	console.log('req', req);
 // });
 app.get('/count', async (req, res) => {
-	if(req.query.apiKey && req.query.apiKey != '' && req.query.apiKey != undefined && req.query.apiKey != null && mongoose.Types.ObjectId.isValid(req.query.apiKey)){
+	if (req.query.apiKey && req.query.apiKey != '' && req.query.apiKey != undefined && req.query.apiKey != null && mongoose.Types.ObjectId.isValid(req.query.apiKey)) {
 		let x = 0;
 		for (var i in viewers) {
 			var viewer = viewers[i];
@@ -359,10 +366,10 @@ app.get('/count', async (req, res) => {
 				++x;
 			}
 		}
-		res.json({ count: x});
+		res.json({ count: x });
 		res.end();
-	}else{
-		res.json({ count: 0});
+	} else {
+		res.json({ count: 0 });
 		res.end();
 	}
 });
