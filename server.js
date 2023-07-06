@@ -59,8 +59,6 @@ function nextUniqueId() {
 }
 var userId = null;
 wss.on('connection', function (ws, req) {
-	// var userId = nextUniqueId();
-	// var sessionId = nextUniqueId();
 	const queryString = req.url.split('?')[1];
 	if (queryString) {
 		const queryParams = new URLSearchParams(queryString);
@@ -158,7 +156,6 @@ function getKurentoClient(callback) {
 			return callback("Could not find media server at address" + argv.ws_uri
 				+ ". Exiting with error " + error);
 		}
-
 		kurentoClient = _kurentoClient;
 		callback(null, kurentoClient);
 	});
@@ -174,21 +171,6 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 		pipeline: null,
 		webRtcEndpoint: null
 	}
-	// let primary = mongoConnection.useDb(constants.DEFAULT_DB);
-	// (async () => {
-	// 	let obj = {
-	// 		sessionId: sessionId,
-	// 		...presenter[sessionId]
-	// 	};
-	// 	let currentPresenter = await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOne({ 'sessionId': sessionId }).lean();
-	// 	if (currentPresenter) {
-	// 		await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
-	// 	} else {
-	// 		await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).create(obj);
-	// 	}
-	// })().catch((error) => {
-	// 	console.log('database error', error);
-	// });
 	getKurentoClient(function (error, kurentoClient) {
 		if (error) {
 			stop(sessionId);
@@ -208,15 +190,6 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 				return callback(noPresenterMessage);
 			}
 			presenter[sessionId].pipeline = pipeline;
-			// (async () => {
-			// 	let obj = {
-			// 		sessionId: sessionId,
-			// 		...presenter[sessionId]
-			// 	};
-			// 	await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
-			// })().catch((error) => {
-			// 	console.log('database error', error);
-			// });
 			pipeline.create('WebRtcEndpoint', function (error, webRtcEndpoint) {
 				if (error) {
 					stop(sessionId);
@@ -227,15 +200,6 @@ function startPresenter(sessionId, ws, sdpOffer, callback) {
 					return callback(noPresenterMessage);
 				}
 				presenter[sessionId].webRtcEndpoint = webRtcEndpoint;
-				// (async () => {
-				// 	let obj = {
-				// 		sessionId: sessionId,
-				// 		...presenter[sessionId]
-				// 	};
-				// 	await primary.model(constants.MODELS.currentpresenters, currentpresentersModel).findOneAndUpdate({ 'sessionId': sessionId }, obj).lean();
-				// })().catch((error) => {
-				// 	console.log('database error', error);
-				// });
 				if (candidatesQueue[sessionId]) {
 					while (candidatesQueue[sessionId].length) {
 						var candidate = candidatesQueue[sessionId].shift();
@@ -276,7 +240,6 @@ function startViewer(sessionId, ws, sdpOffer, callback) {
 		console.log('in if condition 1');
 		stop(sessionId);
 		return callback(noPresenterMessage);
-
 	}
 	presenter[sessionId].pipeline.create('WebRtcEndpoint', function (error, webRtcEndpoint) {
 		if (error) {
