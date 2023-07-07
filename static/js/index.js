@@ -10,6 +10,18 @@ if (oId && oId != null && oId != undefined && oId != '') {
 var video;
 var webRtcPeer;
 var type = 'pub';
+$(document).ready(function() {
+		console.log('hehehehehe');
+		if (oId && oId != null && oId != undefined && oId != '') {
+			$('#call').trigger('click');
+			console.log('1111');
+			// document.getElementById("call").click();
+		} else {
+			console.log('2222');
+			$('#viewer').trigger('click');
+			// document.getElementById("viewer").click();
+		}
+});
 window.onload = function () {
 	if (oId && oId != null && oId != undefined && oId != '') {
 		document.getElementById('call').style.display = "block";
@@ -162,22 +174,6 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
-
-$(document).ready(function() {
-	window.onload = function () {
-		console.log('hehehehehe');
-		if (oId && oId != null && oId != undefined && oId != '') {
-			$('#call').trigger('click');
-			console.log('1111');
-			// document.getElementById("call").click();
-		} else {
-			console.log('2222');
-			$('#viewer').trigger('click');
-			// document.getElementById("viewer").click();
-		}
-	}
-});
-
 setInterval(function () {
 	$.ajax({
 		contentType: 'application/json',
