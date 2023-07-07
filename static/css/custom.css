@@ -110,6 +110,9 @@ body {
 .container-fluid.header_bar .team_btn {
   padding-bottom: 10px;
 }
+.btn {
+  font-size: 10px;
+}
   }
 
   @media (max-width: 374px){
