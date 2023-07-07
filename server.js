@@ -35,7 +35,7 @@ var noPresenterMessage = 'No active presenter. Try again later...';
 var asUrl = url.parse(argv.as_uri);
 var port = asUrl.port;
 var server = https.createServer(options, app).listen(port, function () {
-	console.log('Kurento Tutorial started');
+	console.log('Festum Evento Livestreaming App Started');
 	console.log('Open ' + url.format(asUrl) + ' with a WebRTC capable browser');
 });
 mongoose.set('runValidators', true);
