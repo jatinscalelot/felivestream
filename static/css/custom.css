@@ -4,7 +4,7 @@ body {
   }
   #videoBig {
     width: 100%;
-    height: calc(100vh - 52px);
+    height: calc(100vh - 100px);
     padding: 10px;
     background: #f1f1f1;
   }
@@ -25,19 +25,22 @@ body {
     display: flex;
     align-items: center;
   }
-  .container-fluid.header_bar .team_btn {
-    margin-left: auto;
+  .team_btn {
+    margin: 0 auto;
     display: flex;
+    padding: 0 10px;
   }
-  .container-fluid.header_bar .team_btn a:not(:last-child) {
+  .team_btn a:not(:last-child) {
     margin-right: 10px;
   }
-  .container-fluid.header_bar .team_btn a.btn-success,
-  .container-fluid.header_bar .team_btn a.btn-primary {
+  .team_btn a.btn-success,
+  .team_btn a.btn-primary {
+    width: 100%;
+    max-width: 200px;
     background: #FE6676;
     border: 1px solid #FE6676;
   }
-  .container-fluid.header_bar .team_btn a.btn-danger {
+  .team_btn a.btn-danger {
     color: #141414;
     background-color: white;
     border: 1px solid #141414;
