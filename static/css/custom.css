@@ -1,12 +1,11 @@
 body {
     padding: 0;
     margin: 0;
+    background-color: #020202;
   }
   #videoBig {
     width: 100%;
     height: calc(100vh - 100px);
-    padding: 10px;
-    background: #f1f1f1;
   }
   div#videoBig video#video {
     width: 100%;
@@ -29,7 +28,8 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: center;
-    padding: 7px 10px;
+    padding: 0px 10px;
+    padding-bottom: 14px;
 }
   .team_btn a:not(:last-child) {
     margin-right: 10px;
@@ -54,11 +54,16 @@ body {
     border-radius: 0;
   }
   .liveviewersdiv {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #b1b1b1;
-  font-size: 18px;
+    color: #b1b1b1;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-left: auto;
+    padding: 4px 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+}
+.navbar.navbar-inverse {
+  background: #020202;
 }
 .liveviewersdiv span#liveviewers {
   color: #FE6676;
