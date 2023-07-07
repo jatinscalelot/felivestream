@@ -24,17 +24,6 @@ window.onload = function () {
 	document.getElementById('call').addEventListener('click', function () { presenter(); });
 	document.getElementById('viewer').addEventListener('click', function () { viewer(); });
 	document.getElementById('terminate').addEventListener('click', function () { stop(); });
-
-	$(document).ready(function() {
-		console.log('hehehehehe');
-		if (oId && oId != null && oId != undefined && oId != '') {
-			console.log('1111');
-			$('#call').trigger('click');
-		} else {
-			console.log('2222');
-			$('#viewer').trigger('click');
-		}
-});
 }
 window.onbeforeunload = function () {
 	ws.close();
