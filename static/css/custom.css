@@ -8,7 +8,7 @@ body {
 }
   #videoBig {
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 88px);
   }
   div#videoBig video#video {
     width: 100%;
@@ -76,6 +76,12 @@ body {
 .navbar-header button {
   display: none;
 }
+.navbar-inverse .navbar-brand {
+  padding: 10px 0;
+  height: auto;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
   @media (max-width: 767px) {
     .page-header h1 {
       font-size: 28px;
@@ -83,9 +89,6 @@ body {
     }
   }
   @media (max-width: 700px){
-    #videoBig {
-    height: calc(100vh - 95px);
-  }
     .container-fluid.header_bar {
   flex-wrap: wrap;
 }
@@ -96,37 +99,16 @@ body {
   height: auto;
 }
 
-.navbar-header {
-  margin: 0 !important;
-  width: 100%;
-}
-.liveviewersdiv {
-  position: relative;
-  transform: translateX(0);
-  left: 0;
-  width: auto;
-  padding-bottom: 10px;
-}
 .container-fluid.header_bar .team_btn {
   padding-bottom: 10px;
 }
   }
 
   @media (max-width: 374px){
-    #videoBig {
-    height: calc(100vh - 121px);
-  }
-    .liveviewersdiv {
-  width: 100%;
-  text-align: center;
+  .navbar-header {
+    margin: 0;
 }
 .container-fluid.header_bar .team_btn {
   margin: 0 auto;
-}
-.navbar-inverse .navbar-brand {
-  padding: 10px 0;
-  height: auto;
-  font-size: 16px;
-  letter-spacing: 0.5px;
 }
   }
