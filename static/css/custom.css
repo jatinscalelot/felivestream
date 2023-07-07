@@ -81,12 +81,19 @@ body {
   height: auto;
   font-size: 16px;
   letter-spacing: 0.5px;
-  margin: 0 !important;
+}
+@media(min-width: 768px){
+  .navbar-inverse .navbar-brand {
+    margin: 0 !important;
+  }
 }
   @media (max-width: 767px) {
     .page-header h1 {
       font-size: 28px;
       line-height: 34px;
+    }
+    .navbar-inverse .navbar-brand {
+      padding-left: 15px;
     }
   }
   @media (max-width: 700px){
