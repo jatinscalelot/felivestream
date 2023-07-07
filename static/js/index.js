@@ -14,17 +14,21 @@ window.onload = function () {
 	if (oId && oId != null && oId != undefined && oId != '') {
 		document.getElementById('call').style.display = "block";
 		document.getElementById('viewer').style.display = "none";
-		presenter();
 	} else {
 		document.getElementById('call').style.display = "none";
 		document.getElementById('viewer').style.display = "block";
-		viewer();
 	}
 	console = new Console();
 	video = document.getElementById('video');
 	document.getElementById('call').addEventListener('click', function () { presenter(); });
 	document.getElementById('viewer').addEventListener('click', function () { viewer(); });
 	document.getElementById('terminate').addEventListener('click', function () { stop(); });
+
+	if (oId && oId != null && oId != undefined && oId != '') {
+		document.getElementById("call").click();
+	}else{
+		document.getElementById("viewer").click();
+	}
 }
 window.onbeforeunload = function () {
 	ws.close();
