@@ -164,9 +164,12 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 });
 
 $(document).ready(function() {
+	console.log('hehehehehe');
     if (oId && oId != null && oId != undefined && oId != '') {
+		console.log('1111');
 		document.getElementById("call").click();
 	} else {
+		console.log('2222');
 		document.getElementById("viewer").click();
 	}
 });
