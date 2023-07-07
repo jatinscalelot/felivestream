@@ -10,18 +10,7 @@ if (oId && oId != null && oId != undefined && oId != '') {
 var video;
 var webRtcPeer;
 var type = 'pub';
-$(document).ready(function() {
-		console.log('hehehehehe');
-		if (oId && oId != null && oId != undefined && oId != '') {
-			$('#call').trigger('click');
-			console.log('1111');
-			// document.getElementById("call").click();
-		} else {
-			console.log('2222');
-			$('#viewer').trigger('click');
-			// document.getElementById("viewer").click();
-		}
-});
+
 window.onload = function () {
 	if (oId && oId != null && oId != undefined && oId != '') {
 		document.getElementById('call').style.display = "block";
@@ -35,6 +24,17 @@ window.onload = function () {
 	document.getElementById('call').addEventListener('click', function () { presenter(); });
 	document.getElementById('viewer').addEventListener('click', function () { viewer(); });
 	document.getElementById('terminate').addEventListener('click', function () { stop(); });
+
+	$(document).ready(function() {
+		console.log('hehehehehe');
+		if (oId && oId != null && oId != undefined && oId != '') {
+			console.log('1111');
+			$('#call').trigger('click');
+		} else {
+			console.log('2222');
+			$('#viewer').trigger('click');
+		}
+});
 }
 window.onbeforeunload = function () {
 	ws.close();
