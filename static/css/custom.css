@@ -87,13 +87,16 @@ body {
     margin: 0 !important;
   }
 }
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     .page-header h1 {
       font-size: 28px;
       line-height: 34px;
     }
     .navbar-inverse .navbar-brand {
       padding-left: 15px;
+    }
+    .btn {
+      font-size: 10px;
     }
   }
   @media (max-width: 700px){
@@ -110,9 +113,7 @@ body {
 .container-fluid.header_bar .team_btn {
   padding-bottom: 10px;
 }
-.btn {
-  font-size: 10px;
-}
+
   }
 
   @media (max-width: 374px){
