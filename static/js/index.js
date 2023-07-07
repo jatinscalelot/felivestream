@@ -23,12 +23,6 @@ window.onload = function () {
 	document.getElementById('call').addEventListener('click', function () { presenter(); });
 	document.getElementById('viewer').addEventListener('click', function () { viewer(); });
 	document.getElementById('terminate').addEventListener('click', function () { stop(); });
-
-	if (oId && oId != null && oId != undefined && oId != '') {
-		document.getElementById("call").click();
-	}else{
-		document.getElementById("viewer").click();
-	}
 }
 window.onbeforeunload = function () {
 	ws.close();
@@ -168,6 +162,15 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function (event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
+
+$(document).ready(function() {
+    if (oId && oId != null && oId != undefined && oId != '') {
+		document.getElementById("call").click();
+	} else {
+		document.getElementById("viewer").click();
+	}
+});
+
 setInterval(function () {
 	$.ajax({
 		contentType: 'application/json',
