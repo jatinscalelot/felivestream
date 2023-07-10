@@ -146,7 +146,7 @@ function sendMessage(message) {
 function showSpinner() {
 	for (var i = 0; i < arguments.length; i++) {
 		arguments[i].poster = './img/transparent-1px.png';
-		arguments[i].style.background = 'center transparent url("./img/spinner.gif") no-repeat';
+		arguments[i].style.background = 'center transparent url("./img/FS.gif") no-repeat';
 	}
 }
 function hideSpinner() {
