@@ -177,5 +177,5 @@ setInterval(function () {
 		type: 'GET',
 		url: '/count?apiKey='+sessionId
 	});
-}, 10000);
+}, 5000);
 
