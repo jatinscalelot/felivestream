@@ -171,7 +171,7 @@ setInterval(function () {
 			$('#liveviewers').text(data.count);
 		},
 		error: function(){
-			app.log("Device control failed");
+			console.log('Error while getting current user count');
 		},
 		processData: false,
 		type: 'GET',
