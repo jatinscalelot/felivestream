@@ -152,7 +152,7 @@ function showSpinner() {
 function hideSpinner() {
 	for (var i = 0; i < arguments.length; i++) {
 		arguments[i].src = '';
-		arguments[i].poster = '';
+		arguments[i].poster = './img/FS.gif';
 		arguments[i].style.background = '';
 	}
 }
